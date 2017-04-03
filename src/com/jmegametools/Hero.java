@@ -1,4 +1,5 @@
-package timescape;
+package com.jmegametools;
+
 
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;

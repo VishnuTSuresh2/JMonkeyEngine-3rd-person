@@ -1,4 +1,4 @@
-package timescape;
+package com.jmegametools;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
@@ -28,7 +28,7 @@ public class ThirdPersonCamera implements AnalogListener{
 		Quaternion q = new Quaternion();
 		q.lookAt(cameraPitchNode.getLocalRotation().getRotationColumn(2),
 				cameraPitchNode.getLocalRotation().getRotationColumn(1));
-		cameraNode.rotate(q).move(cameraPitchNode.getLocalRotation().getRotationColumn(2).mult(-10))
+		cameraNode.rotate(q).move(cameraPitchNode.getLocalRotation().getRotationColumn(2).mult(-20))
 				.move(cameraPitchNode.getLocalRotation().getRotationColumn(1).mult(3));
 	}
 	public void attachTo(Node node){
