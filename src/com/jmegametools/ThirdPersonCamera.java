@@ -1,17 +1,11 @@
 package com.jmegametools;
 
-import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
-import com.jme3.input.MouseInput;
-import com.jme3.input.controls.AnalogListener;
-import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 
-public class ThirdPersonCamera implements AnalogListener{
+public class ThirdPersonCamera{
 	private final Camera camera;
 	private final Node cameraYawNode;
 	private final Node cameraPitchNode;
@@ -38,34 +32,17 @@ public class ThirdPersonCamera implements AnalogListener{
 		camera.setLocation(cameraNode.getWorldTranslation());
 		camera.setRotation(cameraNode.getWorldRotation());
 	}
-	public void registerWithInput(InputManager inputManager) {
-		inputManager.addMapping("LookLeft", new MouseAxisTrigger(MouseInput.AXIS_X, true),
-				new KeyTrigger(KeyInput.KEY_LEFT));
-
-		inputManager.addMapping("LookRight", new MouseAxisTrigger(MouseInput.AXIS_X, false),
-				new KeyTrigger(KeyInput.KEY_RIGHT));
-
-		inputManager.addMapping("LookUp", new MouseAxisTrigger(MouseInput.AXIS_Y, false),
-				new KeyTrigger(KeyInput.KEY_UP));
-
-		inputManager.addMapping("LookDown", new MouseAxisTrigger(MouseInput.AXIS_Y, true),
-				new KeyTrigger(KeyInput.KEY_DOWN));
-
-		inputManager.addListener(this, "LookLeft", "LookRight", "LookUp", "LookDown");
-		inputManager.setCursorVisible(false);
-
+	public void lookLeft(float value){
+		cameraYawNode.rotate(0, 1 * value, 0);
 	}
-
-	public void onAnalog(String name, float value, float tpf) {
-		if (name.equals("LookLeft")) {
-			cameraYawNode.rotate(0, 1 * value, 0);
-		} else if (name.equals("LookRight")) {
-			cameraYawNode.rotate(0, -1 * value, 0);
-		} else if (name.equals("LookUp")) {
-			cameraPitchNode.rotate(-1 * value, 0, 0);
-		} else if (name.equals("LookDown")) {
-			cameraPitchNode.rotate(1 * value, 0, 0);
-		}
+	public void lookRight(float value){
+		cameraYawNode.rotate(0, -1 * value, 0);
+	}
+	public void lookUp(float value){
+		cameraPitchNode.rotate(-1 * value, 0, 0);
+	}
+	public void lookDown(float value){
+		cameraPitchNode.rotate(1 * value, 0, 0);
 	}
 	public Vector3f getForward(){
 		Vector3f forwardVector=(cameraYawNode.getWorldRotation().getRotationColumn(2)).multLocal(0.6f);
