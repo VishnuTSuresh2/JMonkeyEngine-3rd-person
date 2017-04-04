@@ -72,9 +72,24 @@ public class Player extends Character {
 	}
 	public void update() {
 		camera.update();
-		if (playerinput.left || playerinput.right || playerinput.up || playerinput.down) {
-			charactermodel.setRotation(camera.getYaw());
+		Vector3f dir=new Vector3f();
+		if (playerinput.left) {
+			dir.addLocal(camera.getLeft());
+			System.out.println(dir);
 		}
+		if (playerinput.right) {
+			dir.addLocal(camera.getLeft().mult(-1));
+		}
+		if (playerinput.up) {
+			dir.addLocal(camera.getForward());
+		}
+		if (playerinput.down) {
+			dir.addLocal(camera.getForward().mult(-1));
+		}
+		if (playerinput.left||playerinput.right||playerinput.up||playerinput.down) {
+			charactermodel.lookAt(dir);
+		}
+		
 		characterphysics.walk(getWalkDirection());
 		super.update();
 	}
